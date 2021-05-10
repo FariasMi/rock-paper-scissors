@@ -35,14 +35,16 @@ let computerPlay = () => {
                 }
 
 
-
-             
-                if(playerSelection === 'rock' && computerSelection ==='scissors' ||
+                if (playerSelection ===  computerSelection){
+                    paraScore.textContent = 'PlayerScore: '+playerPlacar +' Computer Score: '+ computerPlacar ; 
+                    para.textContent = 'It\'s a tie! '
+                    results.appendChild(para);  
+                }else if(playerSelection === 'rock' && computerSelection ==='scissors' ||
                 playerSelection === 'scissors' && computerSelection ==='paper'||
                 playerSelection === 'paper' && computerSelection ==='rock'){
                         playerPlacar +=1;
                         para.style.color ='blue';
-                        paraScore.textContent = 'PLAYER SCORE: '+playerPlacar +' COMPUTER SCORE: '+ computerPlacar ; 
+                        paraScore.textContent = 'PlayerScore: '+playerPlacar +' Computer Score: '+ computerPlacar ; 
                         para.textContent = 'You won, '+playerSelection+' beats '+computerSelection;
                         results.appendChild(para);           
                 }else if (playerSelection === 'rock' && computerSelection ==='paper'||
@@ -50,7 +52,7 @@ let computerPlay = () => {
                         playerSelection === 'paper' && computerSelection ==='scissors'){ 
                                 computerPlacar +=1
                                
-                                paraScore.textContent = 'PLAYER SCORE: '+playerPlacar +' COMPUTER SCORE: '+ computerPlacar ; 
+                                paraScore.textContent = 'PlayerScore: '+playerPlacar +' Computer Score: '+ computerPlacar ;  
                                 para.style.color ='red';
                                 para.textContent = 'You lose, '+ computerSelection+' beats '+playerSelection;  
                                 results.appendChild(para);                       
