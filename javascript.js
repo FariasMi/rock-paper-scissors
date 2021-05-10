@@ -6,68 +6,81 @@ let computerPlay = () => {
     let option = ['rock', 'paper', 'scissors'];
     let index = Math.floor(Math.random() * 3);
     return option[index];
-
-
 }
-function playerPlay() {
-    let playerChoice = prompt("Type here rock, paper or scissors: ");
-    return playerChoice.toLowerCase();
-       
-}   
 
     function playRound(playerSelection,computerSelection){
-       
-              
-            if (playerSelection ===  computerSelection){
-                return "It's a tie";
-            }else if(playerSelection === 'rock' && computerSelection ==='scissors'){
-                playerPlacar +=1;
-                return "You won! Rock beats scissors";              
-            }else if (playerSelection === 'rock' && computerSelection ==='paper'){
-                computerPlacar +=1
-                return "You lose! Paper beats rock";              
-            }else if (playerSelection === 'scissors' && computerSelection ==='paper'){
-                playerPlacar +=1;
-                return "You won! Scissors beats paper";
-            }else if (playerSelection === 'scissors' && computerSelection ==='rock'){
-                computerPlacar +=1
-                return "You lose! Rock beats scissors";
-            }else if (playerSelection ==='paper' && computerSelection ==='rock'){
-                playerPlacar +=1;
-                return "You won! Paper beats rock";
-            }else if (playerSelection === 'paper' && computerSelection ==='scissors'){
-                    return "You lose! scissors beats paper"; 
-                   
-            }
-          
+       const results = document.querySelector('#results');
+       const para = document.querySelector('#matching');
+       const paraScore = document.querySelector('#score');
+                      
+
+                if(playerPlacar === 5){
+
+                    para.style.color ='blue';
+                    para.textContent = 'You won! PLAYER SCORE: '+playerPlacar +' COMPUTER SCORE: '+ computerPlacar ;  
+                    results.appendChild(paraScore);
+                    return;
+
+                } else if (computerPlacar === 5){
+                    paraScore.style.color ='red';
+                    paraScore.textContent = 'You lose! PLAYER SCORE: '+playerPlacar +' COMPUTER SCORE: '+ computerPlacar ;  
+                    results.appendChild(paraScore);
+                    return;
+                } else if (computerPlacar === 5 && playerPlacar==5){
+                    paraScore.style.color ='red';
+                    paraScore.textContent = 'It\'s a tie! PLAYER SCORE: '+playerPlacar +' COMPUTER SCORE: '+ computerPlacar ; 
+
+                    results.appendChild(paraScore);
+                    return;
                 }
 
-    function game(){
-        let player = 'player';
-        let computer = 'computer';
-
-        
-
-        for (var i = 1; i <=5 ; i++){
-            player = playerPlay();
-            computer = computerPlay();
-            console.log('Round: ' +i);
-            console.log('Player: ' + player);
-            console.log('Computer: ' + computer);
-            console.log(playRound(player,computer));
-
-        }
-
-        if(playerPlacar > computerPlacar){
-            console.log("Computer: "+computerPlacar+ " Player: "+playerPlacar+ " You won this, congratulations");
-        }else if  (playerPlacar === computerPlacar) {
-            console.log("Computer: "+computerPlacar+ " Player: "+playerPlacar+" It's a tie, no one won this game");
-        }else{
-            console.log("Computer: "+computerPlacar+ " Player: "+playerPlacar+"You lost, unfortunally");
-        }
-       
 
 
+             
+                if(playerSelection === 'rock' && computerSelection ==='scissors' ||
+                playerSelection === 'scissors' && computerSelection ==='paper'||
+                playerSelection === 'paper' && computerSelection ==='rock'){
+                        playerPlacar +=1;
+                        para.style.color ='blue';
+                        paraScore.textContent = 'PLAYER SCORE: '+playerPlacar +' COMPUTER SCORE: '+ computerPlacar ; 
+                        para.textContent = 'You won, '+playerSelection+' beats '+computerSelection;
+                        results.appendChild(para);           
+                }else if (playerSelection === 'rock' && computerSelection ==='paper'||
+                        playerSelection === 'scissors' && computerSelection ==='rock'||
+                        playerSelection === 'paper' && computerSelection ==='scissors'){ 
+                                computerPlacar +=1
+                               
+                                paraScore.textContent = 'PLAYER SCORE: '+playerPlacar +' COMPUTER SCORE: '+ computerPlacar ; 
+                                para.style.color ='red';
+                                para.textContent = 'You lose, '+ computerSelection+' beats '+playerSelection;  
+                                results.appendChild(para);                       
+                            
+                }       
+          
+
+                              
+          
     }
 
+
+    function game(){
+                   
+        
+        const choices = document.querySelectorAll('button');
+        choices.forEach((button) => {
+            button.addEventListener ('click', () =>{
+             
+               playRound(button.id,computerPlay());
+               console.log('player: '+playerPlacar);
+               console.log('Computer: '+computerPlacar);
+               
+
+            }); 
+            
+                        
+        });
+        
+    }  
+      
+   
 game();
